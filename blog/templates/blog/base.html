@@ -2,6 +2,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Sad',     11],
+          ['Happy',      2],
+          ['Calm',  2],
+          ['Angry', 2],
+          ['Yawning',   7]
+        ]);
+
+        var options = {
+          title: 'Happy Index',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+    </script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,16 +35,16 @@
     <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
 
     {% if title %}
-        <title>Django blog - {{ title }}</title>
+        <title>Django School - {{ title }}</title>
     {% else %}
-        <title>Django blog</title>
+        <title>Django School</title>
     {% endif %}
 </head>
 <body>
     <header class="site-header">
-    <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container">
-        <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Static School</a>
+        <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Classroom</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
@@ -29,14 +52,19 @@
             <div class="navbar-nav mr-auto">
             <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
             <a class="nav-item nav-link" href="{% url 'blog-performance' %}">Student Performance</a>
-            <a class="nav-item nav-link" href="{% url 'blog-about' %}">Grades</a>
-            <a class="nav-item nav-link" href="{% url 'blog-about' %}">Web Camera</a>
+            <a class="nav-item nav-link" href="{% url 'blog-grades' %}">Grades</a>
+            <a class="nav-item nav-link" href="{% url 'blog-chat' %}">Chat Room</a>
             <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
             
             
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
+            <div class="search-bar mt-sm-2 mr-2">
+                <form method="GET">
+                    <input type='text', class="form-control" name="q", id="id_q" placeholder="Search...."></input>
+                </form>
+            </div>
             {% if user.is_authenticated %}
                 <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
                 <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
@@ -60,11 +88,11 @@
                 {% endfor%}
             {% endif%}
             {% block content %}{% endblock %}
-            </div>
+            </div>         
             <div class="col-md-4">
             <div class="content-section">
-                <h3>Our Sidebar</h3>
-                <p class='text-muted'>You can put any information here you'd like.
+                <h3>School Bulletin</h3>
+                <p class='text-muted'>School Advisory and Latest News
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-light">Latest Posts</li>
                     <li class="list-group-item list-group-item-light">Announcements</li>
@@ -82,5 +110,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript">document.getElementById("id_q").value = "{{query}}</script>
 </body>
 </html>

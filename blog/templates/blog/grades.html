@@ -1,0 +1,17 @@
+{% extends "blog/base.html"%}
+{% block content %}
+  <div class="content-section">
+  <div class="media">
+    <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+    <div class="media-body">
+      <h3>{{ user.username}}</h3>
+      <br>
+      <br>
+      <h5 style="padding:50px border:5px solid gray">Sample Subject2 Grade-----------------------{{ user.grade.grade}}</h5>
+      <h5 style="padding:50px border:5px solid gray">Sample Subject3 Grade-----------------------{{ user.grade.grade}}</h5>
+      <h5 style="padding:50px border:5px solid gray">Sample Subject4 Grade-----------------------{{ user.grade.grade}}</h5>
+      <h5 style="padding:50px border:5px solid gray;">Sample Subject5 Grade-----------------------{{ user.grade.grade}}</h5>
+      <h4 style="padding:50px border:5px solid gray;">Sample Total Grade-------------------{{ user.grade.grade}}</h4>
+    </div>
+  </div>
+{% endblock content%}
